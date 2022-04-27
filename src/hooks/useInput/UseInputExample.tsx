@@ -10,6 +10,8 @@ const errMsgs: Partial<Record<validatorName, string>> = {
   email: "Email error nsg",
   userName: "UserName err msg",
   noToBeEmpty: "noToBeEmpty error msg",
+  password: "Pass error message",
+  zipCode: "ZipCode err msg",
 };
 
 export const UseInputExample: FC<iUseInputExampleProps> = () => {
@@ -60,35 +62,36 @@ export const UseInputExample: FC<iUseInputExampleProps> = () => {
           const currItem = err as keyof typeof errMsgs;
           return (
             <div key={err} style={{ color: "red", marginTop: "1rem" }}>
-              Error: {errMsgs[currItem]}
+              {errMsgs[currItem]}
             </div>
           );
         })}
-        {/* {email.errors.length > 0 && (
-          <div style={{ color: "red", marginTop: "1rem" }}>
-            Error: {JSON.stringify(email.errors, null, 4)}
-          </div>
-        )} */}
       </fieldset>
 
       <fieldset>
         <label htmlFor="userName">userName</label>
         <input id="userName" type="text" {...userName.inputAttr} />
-        {userName.errors.length > 0 && (
-          <div style={{ color: "red", marginTop: "1rem" }}>
-            Error: {JSON.stringify(userName.errors, null, 4)}
-          </div>
-        )}
+        {userName.errors.map((err) => {
+          const currItem = err as keyof typeof errMsgs;
+          return (
+            <div key={err} style={{ color: "red", marginTop: "1rem" }}>
+              {errMsgs[currItem]}
+            </div>
+          );
+        })}
       </fieldset>
 
       <fieldset>
         <label htmlFor="zipCode">zipCode</label>
         <input id="zipCode" type="text" {...zipCode.inputAttr} />
-        {zipCode.errors.length > 0 && (
-          <div style={{ color: "red", marginTop: "1rem" }}>
-            Error: {JSON.stringify(zipCode.errors, null, 4)}
-          </div>
-        )}
+        {zipCode.errors.map((err) => {
+          const currItem = err as keyof typeof errMsgs;
+          return (
+            <div key={err} style={{ color: "red", marginTop: "1rem" }}>
+              {errMsgs[currItem]}
+            </div>
+          );
+        })}
       </fieldset>
 
       <fieldset>
@@ -99,11 +102,14 @@ export const UseInputExample: FC<iUseInputExampleProps> = () => {
           {...pass.inputAttr}
           // onChange={onChangeEmailHandler}
         />
-        {pass.errors.length > 0 && (
-          <div style={{ color: "red", marginTop: "1rem" }}>
-            Error: {JSON.stringify(pass.errors, null, 4)}
-          </div>
-        )}
+        {pass.errors.map((err) => {
+          const currItem = err as keyof typeof errMsgs;
+          return (
+            <div key={err} style={{ color: "red", marginTop: "1rem" }}>
+              {errMsgs[currItem]}
+            </div>
+          );
+        })}
       </fieldset>
 
       {/* <fieldset>
