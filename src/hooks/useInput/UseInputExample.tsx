@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { validatorName } from "./isValidInput";
-import { useInput } from "./useInput";
+import { returnUseInput, useInput } from "./useInput";
 
 interface iUseInputExampleProps {
   [key: string]: any;
@@ -12,6 +12,7 @@ const errMsgs: Partial<Record<validatorName, string>> = {
   noToBeEmpty: "noToBeEmpty error msg",
   password: "Pass error message",
   zipCode: "ZipCode err msg",
+  equalTo: "notMatch err",
 };
 
 export const UseInputExample: FC<iUseInputExampleProps> = () => {
@@ -20,41 +21,55 @@ export const UseInputExample: FC<iUseInputExampleProps> = () => {
   const zipCode = useInput({ validators: ["zipCode"] });
 
   const pass = useInput({ validators: ["password", "noToBeEmpty"] });
-  // const confirmPass = useInput({ validators: ["password", "noToBeEmpty"] });
+  const confirmPass = useInput({ validators: ["noToBeEmpty"] });
 
-  // const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
-  //   email.inputAttr.onChange(e);
-  //   const isMatch = e.target.value === userName.value;
-  //   userName.setErrors(setNotMatchErrors(userName, isMatch));
-  // };
+  const onChangePassHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    pass.inputAttr.onChange(e);
+    const isMatch = e.target.value === confirmPass.value;
+    confirmPass.setErrors(setNotMatchErrors(confirmPass, isMatch));
+  };
 
-  // const onChangeUserNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
-  //   userName.inputAttr.onChange(e);
-  //   const isMatch = e.target.value === email.value;
-  //   userName.setErrors(setNotMatchErrors(userName, isMatch));
-  // };
+  const onChangeConfirmPassHandler = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    confirmPass.inputAttr.onChange(e);
+    const isMatch = e.target.value === pass.value;
+    confirmPass.setErrors(setNotMatchErrors(confirmPass, isMatch));
+  };
 
-  // const setNotMatchErrors = (
-  //   input: returnUseInput,
-  //   isMatch: boolean,
-  //   onBlur: boolean = false
-  // ) => {
-  //   if (!input.wasOnblur && !onBlur) return input.errors;
+  const onBlurConfirmPass = (
+    e: React.FocusEvent<HTMLInputElement, Element>
+  ) => {
+    console.log("blur conf", e.target.value, pass.value);
 
-  //   return isMatch
-  //     ? input.errors.filter((item) => item !== "notMatch")
-  //     : Array.from(new Set([...input.errors, "notMatch"]));
-  // };
+    const isMatch = e.target.value === pass.value;
+    confirmPass.setErrors(setNotMatchErrors(confirmPass, isMatch));
+  };
+
+  const setNotMatchErrors = (
+    input: returnUseInput,
+    isMatch: boolean,
+    onBlur: boolean = false
+  ) => {
+    if (!input.wasOnblur && !onBlur) return input.errors;
+
+    return isMatch
+      ? input.errors.filter((item) => item !== "notMatch")
+      : Array.from(new Set([...input.errors, "notMatch"]));
+  };
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     email.inputAttr.onBlur();
     userName.inputAttr.onBlur();
     zipCode.inputAttr.onBlur();
+    pass.inputAttr.onBlur();
+    confirmPass.checkInputValidation();
     console.log({ email, userName });
   };
   return (
     <form onSubmit={submitHandler}>
+      <h1>Uncontrolled inputs</h1>
       <fieldset>
         <label htmlFor="email">Email</label>
         <input id="email" name="email" type="text" {...email.inputAttr} />
@@ -100,7 +115,7 @@ export const UseInputExample: FC<iUseInputExampleProps> = () => {
           id="pass"
           type="text"
           {...pass.inputAttr}
-          // onChange={onChangeEmailHandler}
+          onChange={onChangePassHandler}
         />
         {pass.errors.map((err) => {
           const currItem = err as keyof typeof errMsgs;
@@ -112,20 +127,25 @@ export const UseInputExample: FC<iUseInputExampleProps> = () => {
         })}
       </fieldset>
 
-      {/* <fieldset>
-        <label htmlFor="userNameInputId">UserName</label>
+      <fieldset>
+        <label htmlFor="userNameInputId">confirmPass</label>
         <input
           id="userNameInputId"
           type="text"
-          {...userName.inputAttr}
-          onChange={onChangeUserNameHandler}
+          {...confirmPass.inputAttr}
+          onChange={onChangeConfirmPassHandler}
+          // onBlur={onBlurConfirmPass}
+          onBlur={() => console.log("llll")}
         />
-        {userName.errors.length > 0 && (
-          <div style={{ color: "red", marginTop: "1rem" }}>
-            Error: {JSON.stringify(userName.errors, null, 4)}
-          </div>
-        )}
-      </fieldset> */}
+        {confirmPass.errors.map((err) => {
+          const currItem = err as keyof typeof errMsgs;
+          return (
+            <div key={err} style={{ color: "red", marginTop: "1rem" }}>
+              {errMsgs[currItem]}
+            </div>
+          );
+        })}
+      </fieldset>
 
       <button type="submit">{email.isValid ? "Valid" : "NOT valid !!!"}</button>
     </form>

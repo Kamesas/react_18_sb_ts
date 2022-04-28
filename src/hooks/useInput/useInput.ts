@@ -67,6 +67,7 @@ export const useInput = (props?: inputProps) => {
     setIsValid,
     setErrors,
     wasOnblur,
+    checkInputValidation: onBlur,
     inputAttr: {
       ref,
       onBlur,

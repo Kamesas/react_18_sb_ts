@@ -3,9 +3,10 @@ export type validatorName = 'email' | 'userName' | "equalTo" | 'noToBeEmpty' | '
 type tIsValidInput = {
   value: string
   validators?: Array<validatorName>,
+  equalTo?: string;
 }
 
-export const isValidInput = ({ value, validators }: tIsValidInput) => {
+export const isValidInput = ({ value, validators, equalTo }: tIsValidInput) => {
   if (!validators) return { isValid: true, errorsTypes: [] };
 
   let isValid = false;
@@ -32,8 +33,12 @@ export const isValidInput = ({ value, validators }: tIsValidInput) => {
       setErrorTypes(validator);
     }
     if (validator === "password") {
-      const re = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])((?=.*?[0-9])|(?=.*?[#?!@$%^&*-])).{8,}$/g);
-      isValid = re.test(value);
+      if (!value) {
+        isValid = true;
+      } else {
+        const re = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])((?=.*?[0-9])|(?=.*?[#?!@$%^&*-])).{8,}$/g);
+        isValid = re.test(value);
+      }
       setErrorTypes(validator);
     }
     if (validator === "zipCode") {
@@ -47,6 +52,11 @@ export const isValidInput = ({ value, validators }: tIsValidInput) => {
       setErrorTypes(validator);
     }
 
+  }
+
+  if (equalTo) {
+    isValid = value === equalTo;
+    setErrorTypes('equalTo');
   }
 
   function setErrorTypes(typeErr: validatorName) {
