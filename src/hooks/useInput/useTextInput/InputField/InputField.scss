@@ -1,0 +1,29 @@
+//@import "assets/styles/placeholders/_input.scss";
+
+.InputField {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1.14rem;
+  display: flex;
+  flex-direction: column;
+
+  &-label {
+    //@extend %label;
+  }
+
+  &-input {
+    //@extend %input;
+  }
+
+  &-error-message {
+    color: var(--red-0);
+    padding-top: 0.25rem;
+    font-size: var(--fSize13);
+    text-align: left;
+  }
+  &-note {
+    margin-top: 0.25rem;
+    font-size: 0.75em;
+    color: var(--gray-10);
+  }
+}

@@ -2,6 +2,7 @@ import React, { FC, useEffect } from "react";
 import { isValidForm } from "./checkIsFormValid";
 import { validatorName } from "./isValidInput";
 import { useInputControlled } from "./useInputControlled";
+import { InputField } from "./useTextInput/InputField/InputField";
 
 interface iUseInputExampleProps {
   [key: string]: any;
@@ -50,30 +51,19 @@ export const UseControlledInputExample: FC<iUseInputExampleProps> = () => {
     console.log(form);
   };
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-
-    email.setValue(value.toUpperCase().slice(0, 3));
-  };
-
-  const add = () => {
-    email?.setValue("oooooo");
-    // email?.setValue("semak@gamil.com");
-  };
-
   return (
     <form onSubmit={submitHandler}>
       <h1>Controlled inputs</h1>
-      <button onClick={add}>add val</button>
+      {/* <InputField
+          key={1}
+          placeholder="Some placeholder text here"
+          label="First name"
+          errors={formData.first_name.errors}
+          {...formData.first_name.inputProps}
+        /> */}
       <fieldset>
         <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          name="email"
-          type="text"
-          {...email.inputAttr}
-          onChange={onChangeHandler}
-        />
+        <input id="email" name="email" type="text" {...email.inputAttr} />
         {form.email.errors.map((err) => {
           const currItem = err as keyof typeof errMsgs;
           return (
