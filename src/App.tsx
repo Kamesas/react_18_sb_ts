@@ -30,8 +30,10 @@ function App() {
         <span>som</span>
       </Text>
 
-      <Text>default</Text>
-      <Text color="green">colored</Text>
+      <Text as={"blockquote"}>default</Text>
+      <Text color="red" size="px18">
+        colored
+      </Text>
       <Text as={Emphasis}>You are awesome !</Text>
 
       <Text as="h5" ref={refHeading}>
