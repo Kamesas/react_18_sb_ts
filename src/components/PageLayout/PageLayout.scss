@@ -1,0 +1,8 @@
+.PageLayout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+
+  > .content {
+    padding: 1rem;
+  }
+}

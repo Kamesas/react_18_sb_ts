@@ -4,6 +4,7 @@ import { Notes } from "./pages/Notes/Notes";
 import { English } from "./pages/English/English";
 import { routes } from "./routes";
 import "./App.scss";
+import { Workout } from "./pages/Workout/Workout";
 
 function App() {
   return (
@@ -16,16 +17,7 @@ function App() {
             <Route index element={<div>main</div>} />
             <Route path={routes.english.main + "/*"} element={<English />} />
             <Route path={routes.notes.main} element={<Notes />} />
-
-            {/* <Route path="/" element={<App />}> */}
-            {/* <Route index element={<Home />} /> */}
-            {/* <Route path="words" element={<Words />} /> */}
-            {/* <Route path="teams" element={<Teams />}>
-                  <Route path=":teamId" element={<Team />} />
-                  <Route path="new" element={<NewTeamForm />} />
-                  <Route index element={<LeagueStandings />} />
-                </Route> */}
-            {/* </Route> */}
+            <Route path={routes.workout.main + "/*"} element={<Workout />} />
           </Routes>
         </div>
       </div>

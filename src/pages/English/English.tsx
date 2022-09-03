@@ -1,8 +1,10 @@
 import { FC } from "react";
-import { Route, Routes } from "react-router-dom";
-import { SideBar } from "../../components/SideBar/SideBar";
+import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 import { Words } from "./Words/Words";
-import { routes } from "../../routes";
+import { navPath, routes } from "../../routes";
+import { WordCounter } from "./WordCounter/WordCounter";
+import { Word } from "./Word/Word";
+import { PageLayout } from "../../components/PageLayout/PageLayout";
 import "./English.scss";
 
 type tEnglishProps = {
@@ -11,27 +13,21 @@ type tEnglishProps = {
 
 export const English: FC<tEnglishProps> = () => {
   return (
-    <div className="English">
-      <SideBar />
+    <PageLayout
+      sidebarChildren={
+        <>
+          <NavLink to={navPath.english.words}>Words</NavLink>
+          <NavLink to={navPath.english.wordCounter}>Word counter</NavLink>
+        </>
+      }
+    >
+      <Routes>
+        <Route path={routes.english.words} element={<Words />} />
+        <Route path={routes.english.words + "/:id"} element={<Word />} />
+        <Route path={routes.english.wordCounter} element={<WordCounter />} />
 
-      <div className="pageMain">
-        <Routes>
-          <Route path={routes.english.words} element={<Words />} />
-          <Route
-            path={routes.english.wordCounter}
-            element={<div>count word</div>}
-          />
-
-          {/* <Route path="/" element={<App />}> */}
-          {/* <Route index element={<Home />} /> */}
-          {/* <Route path="teams" element={<Teams />}>
-                  <Route path=":teamId" element={<Team />} />
-                  <Route path="new" element={<NewTeamForm />} />
-                  <Route index element={<LeagueStandings />} />
-                </Route> */}
-          {/* </Route> */}
-        </Routes>
-      </div>
-    </div>
+        <Route path="*" element={<Navigate to={routes.english.words} />} />
+      </Routes>
+    </PageLayout>
   );
 };

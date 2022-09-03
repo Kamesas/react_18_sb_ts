@@ -1,15 +1,20 @@
-import { FC } from "react";
-import { NavLink } from "react-router-dom";
+import { FC, ReactNode, useState } from "react";
+import "./Sidebar.scss";
 
 type tSideBarProps = {
-  [key: string]: any;
+  children: ReactNode;
 };
 
-export const SideBar: FC<tSideBarProps> = () => {
+export const SideBar: FC<tSideBarProps> = ({ children }) => {
+  const [collapsed, setCollapsed] = useState(false);
+  const toggler = () => setCollapsed((prev) => !prev);
+
   return (
-    <div className="SideBar">
-      <NavLink to={"/english/words"}>Words</NavLink>
-      <NavLink to={"/english/word-counter"}>Word counter</NavLink>
+    <div className={`SideBar ${collapsed ? "collapsed" : ""} `}>
+      <button onClick={toggler}>{collapsed ? "Show" : "Hide"}</button>
+      <div className="navigation">{children}</div>
+
+      <button className="AccountBtn">Account</button>
     </div>
   );
 };

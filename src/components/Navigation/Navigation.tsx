@@ -1,5 +1,7 @@
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
+import { navPath } from "../../routes";
+import "./Navigation.scss";
 
 type tNavigationProps = {
   [key: string]: any;
@@ -8,8 +10,9 @@ type tNavigationProps = {
 export const Navigation: FC<tNavigationProps> = () => {
   return (
     <div className="Navigation">
-      <NavLink to={"/english"}>English</NavLink>
-      <NavLink to={"/notes"}>Notes</NavLink>
+      <NavLink to={navPath.english.main}>English</NavLink>
+      <NavLink to={navPath.notes.main}>Notes</NavLink>
+      <NavLink to={navPath.workout.main}>Workout</NavLink>
     </div>
   );
 };

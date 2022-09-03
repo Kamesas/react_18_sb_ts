@@ -1,5 +1,8 @@
 import { FC } from "react";
-import { Navigation } from "./Navigation/Navigation";
+import { Link } from "react-router-dom";
+import { Navigation } from "../Navigation/Navigation";
+import { Text } from "../Text/Text";
+import "./Header.scss";
 
 type tHeaderProps = {
   [key: string]: any;
@@ -8,7 +11,9 @@ type tHeaderProps = {
 export const Header: FC<tHeaderProps> = () => {
   return (
     <div className="Header">
-      Header
+      <Text as={Link} to="/" size="px18" color="red">
+        LogO
+      </Text>
       <Navigation />
     </div>
   );

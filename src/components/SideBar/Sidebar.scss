@@ -1,0 +1,28 @@
+.SideBar {
+  padding: 1rem;
+
+  width: 240px;
+
+  &.collapsed {
+    width: max-content;
+  }
+
+  display: flex;
+  flex-direction: column;
+
+  & > .navigation {
+    padding-top: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    & > a {
+      text-transform: uppercase;
+    }
+  }
+
+  & > .AccountBtn {
+    margin-top: auto;
+  }
+}
