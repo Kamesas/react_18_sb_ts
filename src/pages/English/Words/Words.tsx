@@ -8,10 +8,10 @@ interface iWordsProps {
 }
 
 export const Words: FC<iWordsProps> = () => {
-  const filtered = sevenStr.replace(/(\b\w{1,3}\b)|[@©,]/gim, "");
-  const arrSevenHabits = filtered.split(" ");
-  const uniqueWords = arrSevenHabits.filter((x, i, a) => a.indexOf(x) === i);
-  console.log({ total: arrSevenHabits.length, unique: uniqueWords?.length });
+  // const filtered = sevenStr.replace(/(\b\w{1,3}\b)|[@©,]/gim, "");
+  // const arrSevenHabits = filtered.split(" ");
+  // const uniqueWords = arrSevenHabits.filter((x, i, a) => a.indexOf(x) === i);
+  // console.log({ total: arrSevenHabits.length, unique: uniqueWords?.length });
 
   const [words, setWords] = useState(
     top_3000.map((item, i) => ({ id: i + 1, word: item, translate: "" }))

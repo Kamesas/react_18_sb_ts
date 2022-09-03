@@ -1,60 +1,35 @@
-import { RefObject, useEffect, useRef, useState } from "react";
-import { FormRef } from "./components/Forms/FormRef/FormRef";
-import { Game } from "./components/games/game/Game";
-import { Example1 } from "./components/ReactHookForm/Example1";
-import { Words } from "./components/Words/Words";
-import { UseControlledInputExample } from "./hooks/useInput/UseControlledInputExamples";
-import { UseInputExample } from "./hooks/useInput/UseInputExample";
-import { TestHook } from "./hooks/useInput/useTextInput/TestHook";
-
-import axios from "axios";
-import { Text } from "./components/Text/Text";
-import { TextWithRef } from "./components/TextWithRef/TextWithRef";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Header } from "./components/Header/Header";
+import { Notes } from "./pages/Notes/Notes";
+import { English } from "./pages/English/English";
+import { routes } from "./routes";
+import "./App.scss";
 
 function App() {
-  // useEffect(() => {
-  //   axios.get("http://localhost:8000/posts");
-  //   axios.get("http://localhost:8000/post/62b7e5138ead9f3b050fb371");
-  //   axios.get("http://localhost:8000/posts/tags");
-  // });
-
-  const refHeading = useRef<HTMLHeadingElement | null>(null);
-  const refAnchor = useRef<HTMLAnchorElement | null>(null);
-
   return (
-    <div className="App">
-      <Text as="h1">Text...</Text>
-      <Text as="h3">Text...</Text>
-      <Text as="a" href="https://google.com" target={"_blank"}>
-        Text...
-        <span>som</span>
-      </Text>
+    <BrowserRouter>
+      <div className="App">
+        <Header />
 
-      <Text as={"blockquote"}>default</Text>
-      <Text color="red" size="px18">
-        colored
-      </Text>
+        <div className="main">
+          <Routes>
+            <Route index element={<div>main</div>} />
+            <Route path={routes.english.main + "/*"} element={<English />} />
+            <Route path={routes.notes.main} element={<Notes />} />
 
-      <TextWithRef as="h5" ref={refHeading}>
-        With ref h5
-      </TextWithRef>
-      <TextWithRef as="a" ref={refAnchor}>
-        With ref h5
-      </TextWithRef>
-      {/* <Words /> */}
-      {/* <Game /> */}
-    </div>
-    // <div
-    //   className="App"
-    //   style={{ display: "flex", justifyContent: "space-around" }}
-    // >
-    //   {/* <FormRef /> */}
-    //   <TestHook />
-    //   <UseControlledInputExample />
-
-    //   {/* <UseInputExample /> */}
-    //   {/* <Example1 /> */}
-    // </div>
+            {/* <Route path="/" element={<App />}> */}
+            {/* <Route index element={<Home />} /> */}
+            {/* <Route path="words" element={<Words />} /> */}
+            {/* <Route path="teams" element={<Teams />}>
+                  <Route path=":teamId" element={<Team />} />
+                  <Route path="new" element={<NewTeamForm />} />
+                  <Route index element={<LeagueStandings />} />
+                </Route> */}
+            {/* </Route> */}
+          </Routes>
+        </div>
+      </div>
+    </BrowserRouter>
   );
 }
 
