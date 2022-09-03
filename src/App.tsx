@@ -9,7 +9,7 @@ import { TestHook } from "./hooks/useInput/useTextInput/TestHook";
 
 import axios from "axios";
 import { Text } from "./components/Text/Text";
-import { Emphasis } from "./components/Text/Emphasis/Emphasis";
+import { TextWithRef } from "./components/TextWithRef/TextWithRef";
 
 function App() {
   // useEffect(() => {
@@ -34,14 +34,13 @@ function App() {
       <Text color="red" size="px18">
         colored
       </Text>
-      <Text as={Emphasis}>You are awesome !</Text>
 
-      <Text as="h5" ref={refHeading}>
+      <TextWithRef as="h5" ref={refHeading}>
         With ref h5
-      </Text>
-      <Text as="a" ref={refAnchor}>
+      </TextWithRef>
+      <TextWithRef as="a" ref={refAnchor}>
         With ref h5
-      </Text>
+      </TextWithRef>
       {/* <Words /> */}
       {/* <Game /> */}
     </div>

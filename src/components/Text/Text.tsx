@@ -1,90 +1,33 @@
-import {
-  ComponentPropsWithoutRef,
-  ComponentPropsWithRef,
-  ElementType,
-  forwardRef,
-  PropsWithChildren,
-  ReactElement,
-} from "react";
+import {ComponentPropsWithoutRef, ElementType, PropsWithChildren} from "react"; // prettier-ignore
 import "./Text.scss";
 
-type AsProp<C extends ElementType> = {
-  as?: C;
-};
-
+type AsProp<C extends ElementType> = { as?: C };
 type PropsToOmit<C extends ElementType, P> = keyof (AsProp<C> & P);
-
 type PolymorphicComponentsProps<C extends ElementType, Props = {}> = Props &
   AsProp<C> &
   Omit<ComponentPropsWithoutRef<C>, PropsToOmit<C, Props>>;
-
-type Props<C extends ElementType, P> = PropsWithChildren<
-  PolymorphicComponentsProps<C, P>
->;
-
-type PolymorphicRef<C extends ElementType> = ComponentPropsWithRef<C>["ref"];
-
-type PolymorphicComponentsPropsWithRef<C extends ElementType, P> =
-  PolymorphicComponentsProps<C, P> & { ref?: PolymorphicRef<C> };
 
 type tText = {
   size?: "px18" | "px16" | "px14";
   color?: "red" | "black";
 };
 
-type TextComponent = <C extends ElementType>(
-  props: PolymorphicComponentsPropsWithRef<C, tText>
-) => ReactElement | null;
-
-export const Text: TextComponent = forwardRef(
-  <C extends ElementType = "div">(
-    { children, className, as, size, color, ...rest }: Props<C, tText>,
-    ref?: PolymorphicRef<C>
-  ) => {
-    const classes = ["Text", size, color, className].filter((item) => !!item);
-    const Component = as || "div";
-    return (
-      <Component {...rest} className={classes.join(" ")} ref={ref}>
-        {children}
-      </Component>
-    );
-  }
-);
-
-/**
- * v3
- */
-
-// type tColor = "red" | "green" | "black";
-// type AsProp<C extends ElementType> = {
-//   as?: C;
-// };
-
-// type PropsToOmit<C extends ElementType, P> = keyof (AsProp<C> & P);
-
-// type PolymorphicComponentsProps<C extends ElementType, Props = {}> = Props &
-//   AsProp<C> &
-//   Omit<ComponentPropsWithoutRef<C>, PropsToOmit<C, Props>>;
-
-// type tText = {
-//   color?: tColor;
-// };
-
-// export const Text = <C extends ElementType = "div">({
-//   children,
-//   style,
-//   color,
-//   as,
-//   ...rest
-// }: PropsWithChildren<PolymorphicComponentsProps<C, tText>>) => {
-//   const Component = as || "div";
-//   const internalStyles = color ? { style: { ...style, color } } : {};
-//   return (
-//     <Component {...rest} {...internalStyles}>
-//       {children}
-//     </Component>
-//   );
-// };
+export const Text = <C extends ElementType>({
+  children,
+  color,
+  size,
+  className,
+  as,
+  ...rest
+}: PropsWithChildren<PolymorphicComponentsProps<C, tText>>) => {
+  const classes = ["Text", size, color, className].filter((item) => !!item);
+  const Component = as || "div";
+  return (
+    <Component {...rest} className={classes.join(" ")}>
+      {children}
+    </Component>
+  );
+};
 
 /**
 * v2

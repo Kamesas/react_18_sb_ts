@@ -1,0 +1,18 @@
+.TextWithRef {
+  &.px18 {
+    font-size: 18px;
+  }
+  &.px16 {
+    font-size: 16px;
+  }
+  &.px14 {
+    font-size: 14px;
+  }
+
+  &.red {
+    color: red;
+  }
+  &.black {
+    color: black;
+  }
+}

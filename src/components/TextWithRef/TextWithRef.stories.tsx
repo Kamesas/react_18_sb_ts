@@ -1,9 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Text } from "./Text";
+import { TextWithRef } from "./TextWithRef";
 
 export default {
-  title: "Text",
-  component: Text,
+  title: "TextWithRef",
+  component: TextWithRef,
   argTypes: {
     ref: {
       // table: {
@@ -14,26 +14,28 @@ export default {
     },
     // backgroundColor: { control: "color" },
   },
-} as ComponentMeta<typeof Text>;
+} as ComponentMeta<typeof TextWithRef>;
 
-const Template: ComponentStory<typeof Text> = (args) => <Text {...args} />;
+const Template: ComponentStory<typeof TextWithRef> = (args) => (
+  <TextWithRef {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
   color: "black",
   size: "px16",
-  children: "Text component",
+  children: "TextWithRef component",
   as: "div",
 };
 
 // export const Large = Template.bind({});
 // Large.args = {
 //   size: "px18",
-//   children: "Large text",
+//   children: "Large TextWithRef",
 // };
 
 // export const Red = Template.bind({});
 // Red.args = {
 //   color: "red",
-//   children: "Red text",
+//   children: "Red TextWithRef",
 // };
