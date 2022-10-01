@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
-import { navPath } from "../../routes";
+import { commonNavigation } from "../../commonNavigation";
 import "./Navigation.scss";
 
 type tNavigationProps = {
@@ -10,10 +10,13 @@ type tNavigationProps = {
 export const Navigation: FC<tNavigationProps> = () => {
   return (
     <div className="Navigation">
-      <NavLink to={navPath.english.main}>English</NavLink>
-      <NavLink to={navPath.notes.main}>Notes</NavLink>
-      <NavLink to={navPath.workout.main}>Workout</NavLink>
-      <NavLink to={navPath.tiny.filters}>Tiny</NavLink>
+      {commonNavigation?.map((nav, i) => {
+        return (
+          <NavLink key={i} to={nav.url}>
+            {nav.title}
+          </NavLink>
+        );
+      })}
     </div>
   );
 };

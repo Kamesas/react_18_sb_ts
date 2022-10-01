@@ -1,18 +1,2 @@
 .App {
-  & > .Header {
-    height: var(--headerHeight);
-    border-bottom: 1px solid gray;
-  }
-
-  & > .main,
-  .SideBar {
-    overflow-y: auto;
-    height: calc(100vh - var(--headerHeight));
-  }
-
-  .SideBar {
-    position: sticky;
-    top: 0;
-    border-right: 1px solid grey;
-  }
 }
