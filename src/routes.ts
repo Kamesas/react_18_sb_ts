@@ -14,6 +14,10 @@ export const navPath = {
     get training() {return this.main + "/training"},
     get chart() {return this.main + "/chart"},
   },
+  tiny: {
+    main: '/tiny',
+    get filters(){return this.main + "/filters"}
+  }
 };
 
 function generateRoutePaths(baseRouts: typeof navPath) {

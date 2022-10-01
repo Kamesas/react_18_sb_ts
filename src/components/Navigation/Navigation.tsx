@@ -13,6 +13,7 @@ export const Navigation: FC<tNavigationProps> = () => {
       <NavLink to={navPath.english.main}>English</NavLink>
       <NavLink to={navPath.notes.main}>Notes</NavLink>
       <NavLink to={navPath.workout.main}>Workout</NavLink>
+      <NavLink to={navPath.tiny.filters}>Tiny</NavLink>
     </div>
   );
 };

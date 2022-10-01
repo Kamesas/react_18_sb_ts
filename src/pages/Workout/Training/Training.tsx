@@ -1,3 +1,5 @@
+import { FitnessCenter } from "@mui/icons-material";
+import { Typography } from "@mui/material";
 import { FC, useState } from "react";
 
 type tTrainingProps = {
@@ -10,7 +12,11 @@ export const Training: FC<tTrainingProps> = () => {
 
   return (
     <div className="Training">
-      Training
+      <FitnessCenter />
+      <Typography sx={{ padding: "10px" }} variant="h1">
+        Training
+      </Typography>
+
       <input
         value={val}
         onChange={(e) => {
