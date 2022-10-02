@@ -5,73 +5,48 @@ import {
   IconButton,
   Collapse,
   Box,
-  Table,
-  TableHead,
-  TableBody,
-  Typography,
   TableRow,
+  Typography,
 } from "@mui/material";
-import { createData } from "./rows";
+import { tWorkout } from "../../../../api/workout/types";
+import { InnerTable } from "./InnerTable";
+import { AddNewRow } from "./AddNewRow/AddNewRow";
 
 type tRowProps = {
-  row: ReturnType<typeof createData>;
+  row: tWorkout;
+  index: number;
 };
 
-export const Row: FC<tRowProps> = ({ row }) => {
-  const [open, setOpen] = useState(false);
+export const Row: FC<tRowProps> = ({ row, index }) => {
+  const [open, setOpen] = useState(index === 0);
 
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-        <TableCell>
+        <TableCell component="th" scope="row" sx={{ width: 250 }}>
           <IconButton
             aria-label="expand row"
             size="small"
             onClick={() => setOpen(!open)}
+            sx={{ marginRight: 2 }}
           >
             {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
           </IconButton>
+
+          <Typography component={"span"}>{row?.date}</Typography>
         </TableCell>
-        <TableCell component="th" scope="row">
-          {row.name}
+        <TableCell align="right">Amount {row?.totalAmount}</TableCell>
+        <TableCell align="right">Total time {row?.totalTime}</TableCell>
+        <TableCell align="right">
+          {/* <AddNewRow setData={setData} /> */}
         </TableCell>
-        <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell>
       </TableRow>
 
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              <InnerTable row={row} />
             </Box>
           </Collapse>
         </TableCell>
