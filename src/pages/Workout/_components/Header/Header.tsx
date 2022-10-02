@@ -2,7 +2,7 @@ import { FC } from "react";
 import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { commonNavigation } from "../../../../commonNavigation";
-import { Menu } from "@mui/icons-material";
+import { Home, Menu } from "@mui/icons-material";
 
 type tHeaderProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,15 +26,47 @@ export const Header: FC<tHeaderProps> = ({ setOpen }) => {
           <Menu />
         </IconButton>
 
-        <Typography variant="h6" noWrap component={NavLink} to="/">
-          Logo
+        <Typography
+          variant="h6"
+          noWrap
+          component={NavLink}
+          to="/"
+          sx={(theme) => ({
+            textTransform: "uppercase",
+            textDecoration: "none",
+            color: theme.palette.primary["contrastText"],
+            alignItems: "center",
+            display: "flex",
+          })}
+          mr={4}
+        >
+          <Home />
         </Typography>
 
         {commonNavigation?.map((nav, i) => {
           return (
-            <NavLink key={i} to={nav.url}>
+            <Typography
+              key={i}
+              noWrap
+              component={NavLink}
+              to={nav.url}
+              sx={(theme) => ({
+                textTransform: "uppercase",
+                textDecoration: "none",
+                color: theme.palette.primary["contrastText"],
+                "&.active": {
+                  borderBottom:
+                    "1px solid" + theme.palette.primary["contrastText"],
+                },
+                "&:hover": {
+                  borderBottom:
+                    "1px solid" + theme.palette.primary["contrastText"],
+                },
+              })}
+              mr={2}
+            >
               {nav.title}
-            </NavLink>
+            </Typography>
           );
         })}
       </Toolbar>
